@@ -61,3 +61,4 @@ jobs:
           app-name: 'sampleflask-demo'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_EACF632589FB49318A8C438B842E699A }}
+          package: ./dist/Sample
