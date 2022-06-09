@@ -53,6 +53,15 @@ jobs:
         with:
           name: python-app
           path: .
+      - name: Configure deployment and runtime settings on the webapp
+        run: |
+           az configure --defaults ${{ env.mytranslator }}
+           az webapp config appsettings --name ${{ env.sampleflask-demo }} --settings \
+                SCM_DO_BUILD_DURING_DEPLOYMENT=true \
+                FLASK_ENV=production
+
+           az webapp config set --name ${{ env.WEBAPP_NAME }} \
+            --startup-file "gunicorn --bind=0.0.0.0 --timeout 600 startup:app"
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
